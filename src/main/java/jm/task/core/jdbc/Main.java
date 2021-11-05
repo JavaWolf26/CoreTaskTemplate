@@ -2,6 +2,7 @@ package jm.task.core.jdbc;
 
 import jm.task.core.jdbc.service.UserService;
 import jm.task.core.jdbc.service.UserServiceImpl;
+import jm.task.core.jdbc.util.Util;
 
 import java.util.Random;
 
@@ -22,14 +23,9 @@ public class Main {
         return buffer.toString();
     }
 
-//    private static final String name = generateString();
-//    private static final String lastName = generateString();
-//    private static int min = 0;
-//    private static int max = 100;
-//    private static final byte age = (byte) new Random().nextInt(max - min);
-
     public static void main(String[] args) {
 
+        Util.getSessionFactory();
         userService.createUsersTable();
         userService.saveUser(generateString(), generateString(), (byte) new Random().nextInt(100));
         userService.saveUser(generateString(), generateString(), (byte) new Random().nextInt(100));
@@ -38,5 +34,8 @@ public class Main {
         userService.getAllUsers();
         userService.cleanUsersTable();
         userService.dropUsersTable();
+        System.out.println(Util.getSessionFactory().isClosed());
+        Util.shutdown();
+        System.out.println(Util.getSessionFactory().isClosed());
     }
 }

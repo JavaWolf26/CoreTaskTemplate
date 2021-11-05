@@ -83,7 +83,7 @@ public class UserDaoJDBCImpl implements UserDao {
 //                System.out.println(user);
             }
         } catch (SQLException e) {
-            System.out.println("Полная выборка пользователей не удалось");
+            System.out.println("Полная выборка пользователей не удалась");
         }
         return users;
     }
