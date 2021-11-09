@@ -2,21 +2,33 @@ package jm.task.core.jdbc.model;
 
 import javax.persistence.*;
 
+@Entity
 @Table(name = "user_table", schema = "user")
 public class User {
     @Id
-    private Long id;
-    @Column(name = "name")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Column(nullable = false, length = 55)
     private String name;
-    @Column(name = "lastName")
+    @Column(nullable = false, length = 55)
     private String lastName;
-    @Column(name = "age")
+    @Column(nullable = false)
     private Byte age;
 
     public User() {
     }
 
-    public void setId(Long id) {
+    public User(String name, String lastName, Byte age) {
+        this.name = name;
+        this.lastName = lastName;
+        this.age = age;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
         this.id = id;
     }
 
