@@ -20,16 +20,6 @@ public class Util {
 
     private Connection connection;
 
-//    public Connection getConnection() {
-//        Connection connection = null;
-//        try {
-//            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return connection;
-//    }
-
     public Util() {
         try {
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
@@ -42,6 +32,12 @@ public class Util {
         return connection;
     }
 
+    public static void shutdown() {
+        if (sessionFactory.isOpen()) {
+            sessionFactory.close();
+        }
+    }
+
     private static SessionFactory sessionFactory;
 
     public static SessionFactory getSessionFactory() {
@@ -50,7 +46,6 @@ public class Util {
             try {
                 Configuration configuration = new Configuration();
                 Properties settings = new Properties();
-
                 settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
                 settings.put(Environment.URL, URL);
                 settings.put(Environment.USER, USERNAME);
@@ -61,34 +56,23 @@ public class Util {
                 settings.put(Environment.USE_SQL_COMMENTS, "true");
                 settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
                 settings.put(Environment.HBM2DDL_AUTO, "update");
+                settings.put(Environment.POOL_SIZE, 5);
+                settings.put(Environment.AUTOCOMMIT, "true");
                 settings.put(Environment.C3P0_MIN_SIZE, 5);
                 settings.put(Environment.C3P0_MAX_SIZE, 200);
                 settings.put(Environment.C3P0_MAX_STATEMENTS, 200);
                 settings.put(Environment.C3P0_TIMEOUT, 1800);
                 settings.put(Environment.C3P0_IDLE_TEST_PERIOD, 3000);
-
                 configuration.setProperties(settings);
-//                configuration.addAnnotatedClass(User.class);
-
                 serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();
-
                 sessionFactory = new MetadataSources(serviceRegistry).addAnnotatedClass(User.class)
                         .buildMetadata().buildSessionFactory();
-
-//                sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-
             } catch (Exception e) {
                 System.out.println("Problem creating session factory");
                 e.printStackTrace();
             }
         }
         return sessionFactory;
-    }
-
-    public static void shutdown() {
-        if (sessionFactory.isOpen()) {
-            sessionFactory.close();
-        }
     }
 }
