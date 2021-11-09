@@ -34,8 +34,6 @@ public class Main {
         userService.getAllUsers();
         userService.cleanUsersTable();
         userService.dropUsersTable();
-        System.out.println(Util.getSessionFactory().isClosed());
         Util.shutdown();
-        System.out.println(Util.getSessionFactory().isClosed());
     }
 }
