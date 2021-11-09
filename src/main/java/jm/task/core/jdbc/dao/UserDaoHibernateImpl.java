@@ -80,9 +80,9 @@ public class UserDaoHibernateImpl implements UserDao {
         try (Session session = Util.getSessionFactory().openSession()) {
             Transaction tx = session.beginTransaction();
             users = session.createQuery("FROM User", User.class).list();
-            for (User user : users){
-                System.out.println(user.toString());
-            }
+//            for (User user : users){
+//                System.out.println(user.toString());
+//            }
             tx.commit();
         } catch (Exception e) {
             System.out.println("Полная выборка пользователей не удалась");
