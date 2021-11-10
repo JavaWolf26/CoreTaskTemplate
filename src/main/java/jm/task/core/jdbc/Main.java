@@ -22,12 +22,6 @@ public class Main {
         return buffer.toString();
     }
 
-//    private static final String name = generateString();
-//    private static final String lastName = generateString();
-//    private static int min = 0;
-//    private static int max = 100;
-//    private static final byte age = (byte) new Random().nextInt(max - min);
-
     public static void main(String[] args) {
 
         userService.createUsersTable();
