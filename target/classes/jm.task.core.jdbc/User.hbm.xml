@@ -3,7 +3,7 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="jm.task.core.jdbc.model.User" table="user_table" catalog="user">
+    <class name="jm.task.core.jdbc.model.User" table="user_table" catalog="users">
         <id name="id" type="long" column="id">
             <generator class="native"/>
         </id>

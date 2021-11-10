@@ -18,7 +18,7 @@ public class UserDaoHibernateImpl implements UserDao {
     public void createUsersTable() {
         try (Session session = Util.getSessionFactory().getCurrentSession()) {
             Transaction tx = session.beginTransaction();
-            session.createSQLQuery("CREATE TABLE IF NOT EXISTS user.user_table" +
+            session.createSQLQuery("CREATE TABLE IF NOT EXISTS users.user_table" +
                             "(id bigint not null auto_increment primary key, " +
                             "name varchar(55) not null, lastName varchar(55) not null, age tinyint not null)")
                     .addEntity(User.class).executeUpdate();
@@ -33,7 +33,7 @@ public class UserDaoHibernateImpl implements UserDao {
     public void dropUsersTable() {
         try (Session session = Util.getSessionFactory().getCurrentSession()) {
             Transaction tx = session.beginTransaction();
-            session.createSQLQuery("DROP TABLE IF EXISTS user.user_table")
+            session.createSQLQuery("DROP TABLE IF EXISTS users.user_table")
                     .addEntity(User.class).executeUpdate();
             tx.commit();
         } catch (Exception e) {
@@ -80,9 +80,6 @@ public class UserDaoHibernateImpl implements UserDao {
         try (Session session = Util.getSessionFactory().openSession()) {
             Transaction tx = session.beginTransaction();
             users = session.createQuery("FROM User", User.class).list();
-//            for (User user : users){
-//                System.out.println(user.toString());
-//            }
             tx.commit();
         } catch (Exception e) {
             System.out.println("Полная выборка пользователей не удалась");
@@ -95,7 +92,7 @@ public class UserDaoHibernateImpl implements UserDao {
     public void cleanUsersTable() {
         try (Session session = Util.getSessionFactory().getCurrentSession()) {
             Transaction tx = session.beginTransaction();
-            session.createSQLQuery("TRUNCATE TABLE user.user_table")
+            session.createSQLQuery("TRUNCATE TABLE users.user_table")
                     .addEntity(User.class).executeUpdate();
             tx.commit();
         } catch (Exception e) {

@@ -3,7 +3,7 @@ package jm.task.core.jdbc.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user_table", schema = "user")
+@Table(name = "user_table", schema = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
