@@ -79,7 +79,7 @@ public class UserDaoHibernateImpl implements UserDao {
         List<User> users = new ArrayList<>();
         try (Session session = Util.getSessionFactory().openSession()) {
             Transaction tx = session.beginTransaction();
-            users = session.createQuery("FROM User", User.class).list();
+            users = session.createNativeQuery("select * FROM users.user_table", User.class).list();
             tx.commit();
         } catch (Exception e) {
             System.out.println("Полная выборка пользователей не удалась");
